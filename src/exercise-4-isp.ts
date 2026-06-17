@@ -12,15 +12,22 @@
 // Run:  npm run exercise-4
 // =============================================================
 
-interface Vehicle {
+
+interface HasEngine {
   startEngine(): void;
   stopEngine(): void;
+}
+interface HasFuel {
   refuel(): void;
+}
+interface HasBattery {
   chargeBattery(): void;
-  pedal(): void;
 }
 
-class PetrolCar implements Vehicle {
+interface HasPedals {
+  pedal(): void;
+}
+class PetrolCar implements HasEngine, HasFuel {
   startEngine() {
     console.log("Engine started");
   }
@@ -30,45 +37,22 @@ class PetrolCar implements Vehicle {
   refuel() {
     console.log("Refuelling with petrol");
   }
-  chargeBattery() {
-    throw new Error("Petrol cars don't charge batteries");
-  }
-  pedal() {
-    throw new Error("Cars don't have pedals");
-  }
+
 }
 
-class ElectricCar implements Vehicle {
+class ElectricCar implements HasEngine, HasBattery {
   startEngine() {
     console.log("Motor started");
   }
   stopEngine() {
     console.log("Motor stopped");
   }
-  refuel() {
-    throw new Error("Electric cars don't use fuel");
-  }
   chargeBattery() {
     console.log("Charging battery");
   }
-  pedal() {
-    throw new Error("Cars don't have pedals");
-  }
 }
 
-class Bicycle implements Vehicle {
-  startEngine() {
-    throw new Error("Bicycles have no engine");
-  }
-  stopEngine() {
-    throw new Error("Bicycles have no engine");
-  }
-  refuel() {
-    throw new Error("Bicycles don't refuel");
-  }
-  chargeBattery() {
-    throw new Error("Bicycles don't charge batteries");
-  }
+class Bicycle implements HasPedals {
   pedal() {
     console.log("Pedalling away!");
   }
