@@ -9,33 +9,36 @@
 // =============================================================
 
 class BlogPost {
-  title: string;
-  content: string;
-  author: string;
 
-  constructor(title: string, content: string, author: string) {
-    this.title = title;
-    this.content = content;
-    this.author = author;
+  constructor(public title: string, public content: string, public author: string) {
   }
+}
+  class BlogPostRepository {
 
-  // Persistence
-  saveToDatabase() {
-    console.log(`Saving "${this.title}" to the database...`);
+    saveToDatabase(post: BlogPost) {
+    console.log(`Saving "${post.title}" to the database...`);
+    }
   }
-
   // Formatting
-  renderAsHtml(): string {
-    return `<h1>${this.title}</h1><p>By ${this.author}</p><p>${this.content}</p>`;
-  }
-
-  // Notification
-  notifySubscribers() {
-    console.log(`Sending email notification for new post: "${this.title}"`);
+  class BlogPostRender {
+  renderAsHtml(post: BlogPost): string {
+    return `<h1>${post.title}</h1><p>By ${post.author}</p><p>${post.content}</p>`;
   }
 }
 
+  // Notification
+  class BlogPostNotifier {
+  notifySubscribers(post: BlogPost) {
+    console.log(`Sending email notification for new post: "${post.title}"`);
+  }
+  }
+
 const post = new BlogPost("SOLID Rocks", "Here is why...", "Alice");
-post.saveToDatabase();
-console.log(post.renderAsHtml());
-post.notifySubscribers();
+
+const repository = new BlogPostRepository();
+const renderer = new BlogPostRender();
+const notifier = new BlogPostNotifier();
+
+repository.saveToDatabase(post);
+console.log(renderer.renderAsHtml(post));
+notifier.notifySubscribers(post);
